@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable camelcase */
+
+import React from "react";
+import { SafeAreaView, StatusBar } from "react-native";
+
+import {
+  Montserrat_400Regular,
+  Montserrat_700Bold,
+  useFonts,
+} from "@expo-google-fonts/montserrat";
+import AppLoading from "expo-app-loading";
+
+import mock from "./src/mocks/basket";
+import Basket from "./src/pages/Basket/Basket";
 
 export default function App() {
+  const [loadedFont] = useFonts({
+    MontSerratRegular: Montserrat_400Regular,
+    MontSerratBold: Montserrat_700Bold,
+  });
+
+  if (!loadedFont) {
+    return <AppLoading />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar />
+      <Basket {...mock} />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
